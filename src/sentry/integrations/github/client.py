@@ -61,6 +61,9 @@ class GitHubAppsClient(GitHubClientMixin):
         token = self.integration.metadata['access_token']
         expires_at = self.integration.metadata['expires_at']
 
+        if expires_at is not None:
+            expires_at = datetime.strptime(expires_at, '%Y-%m-%dT%H:%M:%S')
+
         if not token or expires_at < datetime.utcnow():
             res = self.create_token()
             token = res['token']
@@ -71,7 +74,7 @@ class GitHubAppsClient(GitHubClientMixin):
 
             self.integration.metadata.update({
                 'access_token': token,
-                'expires_at': expires_at,
+                'expires_at': expires_at.isoformat(),
             })
             self.integration.save()
 
