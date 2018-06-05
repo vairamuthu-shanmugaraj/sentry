@@ -85,11 +85,19 @@ class ExternalIssueActionList extends AsyncComponent {
     });
   };
 
+  renderEmpty() {
+    // TODO(jess): This should link to org integrations page
+    return <MenuItem>{t('No integrations configured')}</MenuItem>;
+  }
+
   renderBody() {
-    let {selectedIntegration} = this.state;
+    let {selectedIntegration, integrations} = this.state;
+    if (!integrations || !integrations.length) {
+      return this.renderEmpty();
+    }
     return (
       <React.Fragment>
-        {this.state.integrations.map(integration => {
+        {integrations.map(integration => {
           return (
             <MenuItem key={integration.id} noAnchor={true}>
               <a onClick={this.openModal.bind(this, integration)}>
