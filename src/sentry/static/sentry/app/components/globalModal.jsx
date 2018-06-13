@@ -97,6 +97,7 @@ const GlobalModalContainer = createReactClass({
     let {modalStore} = this.state;
     let visible = !!modalStore && typeof modalStore.renderer === 'function';
 
+    apowekrop();
     return (
       <GlobalModal {...this.props} {...modalStore} visible={visible}>
         {visible ? modalStore.renderer : null}
