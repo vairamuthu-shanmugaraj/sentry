@@ -58,8 +58,8 @@ class GitHubAppsClient(GitHubClientMixin):
         Should the token have expried, a new token will be generated and
         automatically presisted into the integration.
         """
-        token = self.integration.metadata['access_token']
-        expires_at = self.integration.metadata['expires_at']
+        token = self.integration.metadata.get('access_token')
+        expires_at = self.integration.metadata.get('expires_at')
 
         if expires_at is not None:
             expires_at = datetime.strptime(expires_at, '%Y-%m-%dT%H:%M:%S')
